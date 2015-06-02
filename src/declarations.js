@@ -1,6 +1,6 @@
 type Component = {
   // is a map of string -> primitive
-  [key: string]: string | number | boolean,
+  [field: string]: string | number | boolean,
   // has a type property
   type: string
 };

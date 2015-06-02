@@ -1,20 +1,31 @@
 /* @flow */
 'use strict';
 
-var components = {};
+var components: { [componentType: string]: [Component] } = {};
 
-exports.hasComponent = function hasComponent(componentName: string): boolean {
-  return components.hasOwnProperty(componentName);
+exports.hasComponent = function(componentType: string): boolean {
+  return components.hasOwnProperty(componentType);
 };
 
-// exports.getComponent = function getComponent(componentName: string): ?Component {
+// exports.getComponent = function getComponent(componentType: string): ?Component {
 //
 // };
 
-exports.attachComponent = function attachComponent(entityId: number,
-  componentName: string): boolean {
+exports.attachComponent = function(entityId: number,
+  component: Component): void {
 
-  return false;
+  var componentType = component.type;
+
+  if(!exports.hasComponent(componentType)) {
+    allocate(componentType);
+  }
+
+  components[componentType][entityId] = component;
+}
+
+// make a entry in the component store for a new component type
+function allocate(componentType: string): void {
+  components[componentType] = [];
 }
 
 // exports.makeComponent = function makeComponent() {

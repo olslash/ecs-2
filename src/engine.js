@@ -5,13 +5,23 @@ var _ = require('lodash');
 
 var store = require('./store');
 
-// return a guid (for entities)
-var nextGuid = 0;
-exports.getGuid = function(): Guid {
-  return nextGuid++;
+// make a new entity and optionally attach the specified components to it.
+exports.makeEntity = function(components: [Component] = []): Guid {
+  var guid = getGuid();
+
+  if(components.length > 0) {
+    // attach a new instance of each component in the list to the relevant data
+    // structure in store
+    components.forEach(function(component) {
+      store.attachComponent(guid, component.getInstance)
+    });
+  }
+
+  return guid;
 };
 
-exports.defineComponent = function makeComponent(type: string,
+
+exports.defineComponent = function(type: string,
   fields: Object): ComponentFactory {
 
   // verify a component with this name doesn't already exist
@@ -20,7 +30,13 @@ exports.defineComponent = function makeComponent(type: string,
   }
 
   var createComponentInstance = function(): Component {
-    // FIXME: implement as factory
+    var instance = {
+      type: type
+    }
+
+    Object.assign(instance, fields);
+
+    return instance;
   };
 
   var result: ComponentFactory = {
@@ -32,22 +48,14 @@ exports.defineComponent = function makeComponent(type: string,
 };
 
 
-exports.attachComponent = function(entityId: number, components: [Object]) {
-  // store.attachComponent(entityId, )
+exports.attachComponent = function(entityId: number, components: [Component]) {
+  components.forEach(function(component) {
+    store.attachComponent(entityId, component);
+  });
 };
 
-// make a new entity and optionally attach the specified components to it.
-exports.makeEntity = function(components: ?[Component]): Guid {
-  var guid = exports.getGuid();
-
-  if(components && components.length > 0) {
-    // attach a new instance of each component in the list to the relevant data
-    // structure in store
-    components.forEach(function(component) {
-      store.attachComponent(guid, component.getInstance)
-    });
-
-  }
-
-  return guid;
+// return a guid (for entities)
+var nextGuid = 0;
+function getGuid(): Guid {
+  return nextGuid++;
 };
