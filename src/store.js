@@ -7,9 +7,9 @@ exports.hasComponent = function(componentType: string): boolean {
   return components.hasOwnProperty(componentType);
 };
 
-// exports.getComponent = function getComponent(componentType: string): ?Component {
-//
-// };
+exports.getComponent = function getComponent(componentType: string): ?Component {
+  
+};
 
 exports.attachComponent = function(entityId: number,
   component: Component): void {
@@ -27,7 +27,3 @@ exports.attachComponent = function(entityId: number,
 function allocate(componentType: string): void {
   components[componentType] = [];
 }
-
-// exports.makeComponent = function makeComponent() {
-//
-// }

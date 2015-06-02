@@ -6,7 +6,10 @@ type Component = {
 };
 
 type System = {
-  tick: (components: Array<Component>) => void
+  // called by game loop
+  tick: () => void,
+  // defined w/ system-- contains system logic
+  onTick: (components: Array<Component>) => void
 };
 
 type ComponentFactory = {

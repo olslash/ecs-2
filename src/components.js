@@ -5,8 +5,6 @@ var _ = require('lodash');
 var defineComponent = require('./engine').defineComponent;
 var keymap = require('../config/keymap').bindings;
 
-
-// FIXME; think about getting rid of this factory-factory pattern. 
 exports.Position = defineComponent('Position', {
   x: 0,
   y: 0
