@@ -5,6 +5,10 @@ type Component = {
   type: string
 };
 
+type System = {
+  tick: (components: Array<Component>) => void
+};
+
 type ComponentFactory = {
   type: string,
   getInstance: () => Component

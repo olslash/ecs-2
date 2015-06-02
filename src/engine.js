@@ -6,7 +6,7 @@ var _ = require('lodash');
 var store = require('./store');
 
 // make a new entity and optionally attach the specified components to it.
-exports.makeEntity = function(components: [Component] = []): Guid {
+exports.makeEntity = function(components: Array<Component> = []): Guid {
   var guid = getGuid();
 
   if(components.length > 0) {
@@ -39,16 +39,14 @@ exports.defineComponent = function(type: string,
     return instance;
   };
 
-  var result: ComponentFactory = {
+  return {
     type: type,
     getInstance: createComponentInstance
   };
-
-  return result;
 };
 
 
-exports.attachComponent = function(entityId: number, components: [Component]) {
+exports.attachComponent = function(entityId: number, components: Array<Component>) {
   components.forEach(function(component) {
     store.attachComponent(entityId, component);
   });

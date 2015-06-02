@@ -1,7 +1,7 @@
 /* @flow */
 'use strict';
 
-var components: { [componentType: string]: [Component] } = {};
+var components: { [componentType: string]: Array<Component> } = {};
 
 exports.hasComponent = function(componentType: string): boolean {
   return components.hasOwnProperty(componentType);
