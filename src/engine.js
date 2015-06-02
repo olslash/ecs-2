@@ -13,7 +13,7 @@ exports.makeEntity = function(components: Array<Component> = []): Guid {
     // attach a new instance of each component in the list to the relevant data
     // structure in store
     components.forEach(function(component) {
-      store.attachComponent(guid, component.getInstance)
+      store.attachComponent(guid, component.getInstance())
     });
   }
 
