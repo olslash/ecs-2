@@ -42,10 +42,8 @@ exports.defineComponent = function(type: string,
 };
 
 
-exports.attachComponent = function(entityId: number, components: Array<Component>) {
-  components.forEach(function(component) {
-    store.attachComponent(entityId, component);
-  });
+exports.attachComponent = function(entityId: Guid, component: ComponentFactory) {
+  store.attachComponent(entityId, component.getInstance());
 };
 
 exports.makeSystem = function(componentNames: Array<string>,
