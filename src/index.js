@@ -15,8 +15,26 @@ var player3 = e.makeEntity([c.Renderable]);
 
 var s: System = e.makeSystem(['Position', 'Renderable'], function(components) {
   e.iterateMatching(components, function(entity) {
-    console.log(entity);
+    _.noop(entity)
+
   });
 });
 
-s.tick()
+var renderSystem = require('./systems/render');
+
+var fps = 0;
+
+function gameLoop() {
+  fps ++;
+  // todo: bookkeeping of systems-- automatically tick all of them
+  s.tick()
+  renderSystem.tick()
+  setImmediate(gameLoop)
+}
+
+setInterval(function() {
+  console.log('FPS: ' + fps)
+  fps = 0;
+}, 1000)
+
+gameLoop()
