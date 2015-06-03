@@ -1,14 +1,14 @@
 /* @flow */
 'use strict';
 
-var components: { [componentType: string]: Array<Component> } = {};
+var components: ComponentRecord = {};
 
 exports.hasComponent = function(componentType: string): boolean {
   return components.hasOwnProperty(componentType);
 };
 
-exports.getComponent = function getComponent(componentType: string): ?Component {
-  
+exports.getComponentList = function(componentType: string): ?Array<Component> {
+  return components[componentType] || null;
 };
 
 exports.attachComponent = function(entityId: number,

@@ -48,23 +48,54 @@ exports.attachComponent = function(entityId: number, components: Array<Component
   });
 };
 
-exports.makeSystem = function(components: Array<string>,
-  impl: (components: Array<Component>) => void): System {
+exports.makeSystem = function(componentNames: Array<string>,
+  impl: (components: ComponentRecord) => void): System {
 
   return {
     // systems get references to the full arrays of every component they specify
     tick: function() {
-      // TODO: gather components specified from store,
-      // then call onTick with those
-      // store.getComponentBy
-      // FIXME: where does validation happen to say that a given entity
-      // posesses all the components needed? Right now we'd just pass the
-      // requested component arrays but should those be filtered? seems slow
-      // -- generated member function that verifies?
-    },
+      var components: ComponentRecord = {};
 
-    onTick: impl
+      componentNames.forEach(function(component) {
+        var componentList = store.getComponentList(component);
+
+        if(componentList) {
+          components[component] = componentList;
+        }
+      });
+
+      impl(components);
+    }
   };
+}
+
+// given a ComponentRecord, iterate only the entities that all have a component
+// at that index. Lets a system iterate only relevant entites
+// (ones that have all required the components)
+exports.iterateMatching = function(components: ComponentRecord,
+  cb: (match: Entity) => void) {
+
+  var shortestComponentList: Array<Component> = _.reduce(components, function(shortest, comp) {
+      if(comp.length < shortest.length) {
+        return comp;
+      }
+
+      return shortest;
+  })
+
+  shortestComponentList.forEach(function(comp, i) {
+    var hasAllRequiredComponents = _.every(components, function(val) {
+      return !!val[i]
+    });
+
+    if(hasAllRequiredComponents) {
+      var match = _.mapValues(components, function(val) {
+        return val[i];
+      });
+
+      cb(match, i)
+    }
+  })
 }
 
 // return a guid (for entities)

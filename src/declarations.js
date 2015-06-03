@@ -1,3 +1,12 @@
+type Guid = number;
+
+// entities are implied only, generated on demand, and usually only
+// partially-represented (systems get only the components they care about,
+// not an entire entity)
+type Entity = {
+  [componentType: string]: Component
+};
+
 type Component = {
   // is a map of string -> primitive
   [field: string]: string | number | boolean,
@@ -5,16 +14,15 @@ type Component = {
   type: string
 };
 
-type System = {
-  // called by game loop
-  tick: () => void,
-  // defined w/ system-- contains system logic
-  onTick: (components: Array<Component>) => void
-};
-
 type ComponentFactory = {
   type: string,
   getInstance: () => Component
 };
 
-type Guid = number;
+// raw component data fed to a system tick()
+type ComponentRecord = { [componentType: string]: Array<Component> };
+
+type System = {
+  // called by game loop, defined w/ system-- contains system logic
+  tick: () => void
+};
