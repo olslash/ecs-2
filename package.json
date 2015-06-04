@@ -6,7 +6,7 @@
   "scripts": {
     "watch": "jstransform --strip-types --harmony --watch src/ build/",
     "start": "node build",
-    "watchExample": "browserify example/index.js -t babelify --outfile build/example.bundle.js"
+    "watchExample": "watchify example/index.js -t babelify --outfile example/build/example.bundle.js"
   },
   "author": "",
   "license": "ISC",

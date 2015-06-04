@@ -34,11 +34,11 @@ module.exports = e.makeSystem(['Renderable', 'Position'], function(components) {
 
   // write to screen
   _.each(grid, function(row, y) {
-    _.each(row, function(pixel: Pixel, x) {
+    var thisRow = _.map(row, function(pixel: Pixel, x) {
       // charm.foreground(pixel.foreground);
-      process.stdout.write(pixel.character);
+      return pixel.character;
     });
-    console.log('\r')
+    console.log(thisRow.join(''))
   });
-  process.stdout.write('\u001B[2J\u001B[0;0f')
+  // console.clear();
 });

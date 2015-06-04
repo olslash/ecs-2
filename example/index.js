@@ -1,6 +1,6 @@
 /* @flow */
 'use strict';
-
+console.log('here')
 var _ = require('lodash');
 
 var e = require('../src/engine');
@@ -29,7 +29,7 @@ function gameLoop() {
   // todo: bookkeeping of systems-- automatically tick all of them
   s.tick()
   renderSystem.tick()
-  setImmediate(gameLoop)
+  window.requestAnimationFrame(gameLoop)
 }
 
 setInterval(function() {
