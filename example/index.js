@@ -3,9 +3,9 @@
 
 var _ = require('lodash');
 
-var e = require('./engine');
+var e = require('../src/engine');
 var c = require('./components');
-var assemblages = require('./assemblages');
+var assemblages = require('./components/assemblages');
 
 var player = e.makeEntity(assemblages.player);
 // test:

@@ -1,6 +1,6 @@
 /* @flow */
 'use strict';
 
-var c = require('./components');
+var c = require('./index');
 
 exports.player = [c.Position, c.Velocity, c.Renderable, c.Controllable];

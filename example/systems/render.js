@@ -3,7 +3,7 @@
 
 var _     = require('lodash');
 
-var e = require('../engine');
+var e = require('../../src/engine');
 
 type Pixel = {
   foreground: string;

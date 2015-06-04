@@ -2,7 +2,7 @@
 'use strict';
 
 var _ = require('lodash');
-var defineComponent = require('./engine').defineComponent;
+var defineComponent = require('../../src/engine').defineComponent;
 var keymap = require('../config/keymap').bindings;
 
 exports.Position = defineComponent('Position', {
